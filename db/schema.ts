@@ -1,7 +1,7 @@
 import {
   mysqlTable,
   mysqlEnum,
-  serial,
+  bigint,
   varchar,
   text,
   timestamp,
@@ -15,7 +15,7 @@ import {
 // Users (Auth System)
 // ============================================
 export const users = mysqlTable("users", {
-  id: serial("id").primaryKey(),
+  id: bigint("id", { mode: "number", unsigned: true }).autoincrement().primaryKey(),
   unionId: varchar("unionId", { length: 255 }).notNull().unique(),
   name: varchar("name", { length: 255 }),
   email: varchar("email", { length: 320 }),
@@ -36,7 +36,7 @@ export type InsertUser = typeof users.$inferInsert;
 // Categories
 // ============================================
 export const categories = mysqlTable("categories", {
-  id: serial("id").primaryKey(),
+  id: bigint("id", { mode: "number", unsigned: true }).autoincrement().primaryKey(),
   slug: varchar("slug", { length: 255 }).notNull().unique(),
   nameDe: varchar("nameDe", { length: 255 }).notNull(),
   nameEn: varchar("nameEn", { length: 255 }).notNull(),
@@ -51,7 +51,7 @@ export type InsertCategory = typeof categories.$inferInsert;
 // Blog Posts
 // ============================================
 export const blogPosts = mysqlTable("blogPosts", {
-  id: serial("id").primaryKey(),
+  id: bigint("id", { mode: "number", unsigned: true }).autoincrement().primaryKey(),
   slug: varchar("slug", { length: 255 }).notNull().unique(),
   titleDe: varchar("titleDe", { length: 255 }).notNull(),
   titleEn: varchar("titleEn", { length: 255 }).notNull(),
@@ -79,7 +79,7 @@ export type InsertBlogPost = typeof blogPosts.$inferInsert;
 // Guides
 // ============================================
 export const guides = mysqlTable("guides", {
-  id: serial("id").primaryKey(),
+  id: bigint("id", { mode: "number", unsigned: true }).autoincrement().primaryKey(),
   slug: varchar("slug", { length: 255 }).notNull().unique(),
   titleDe: varchar("titleDe", { length: 255 }).notNull(),
   titleEn: varchar("titleEn", { length: 255 }).notNull(),
@@ -107,7 +107,7 @@ export type InsertGuide = typeof guides.$inferInsert;
 // Guide Steps
 // ============================================
 export const guideSteps = mysqlTable("guideSteps", {
-  id: serial("id").primaryKey(),
+  id: bigint("id", { mode: "number", unsigned: true }).autoincrement().primaryKey(),
   guideId: bigint("guideId", { mode: "number", unsigned: true }).notNull(),
   stepNumber: int("stepNumber").notNull(),
   titleDe: varchar("titleDe", { length: 255 }).notNull(),
@@ -124,7 +124,7 @@ export type InsertGuideStep = typeof guideSteps.$inferInsert;
 // Media Library
 // ============================================
 export const media = mysqlTable("media", {
-  id: serial("id").primaryKey(),
+  id: bigint("id", { mode: "number", unsigned: true }).autoincrement().primaryKey(),
   filename: varchar("filename", { length: 255 }).notNull(),
   originalName: varchar("originalName", { length: 255 }),
   url: text("url").notNull(),
@@ -146,7 +146,7 @@ export type InsertMedia = typeof media.$inferInsert;
 // Grow Diaries
 // ============================================
 export const growDiaries = mysqlTable("growDiaries", {
-  id: serial("id").primaryKey(),
+  id: bigint("id", { mode: "number", unsigned: true }).autoincrement().primaryKey(),
   slug: varchar("slug", { length: 255 }).notNull().unique(),
   // Sorte
   strainNameDe: varchar("strainNameDe", { length: 255 }).notNull(),
@@ -180,7 +180,7 @@ export type InsertGrowDiary = typeof growDiaries.$inferInsert;
 // Grow Diary Entries (Tageseintrage)
 // ============================================
 export const growDiaryEntries = mysqlTable("growDiaryEntries", {
-  id: serial("id").primaryKey(),
+  id: bigint("id", { mode: "number", unsigned: true }).autoincrement().primaryKey(),
   diaryId: bigint("diaryId", { mode: "number", unsigned: true }).notNull(),
   day: int("day").notNull(),
   phase: mysqlEnum("phase", ["vegetative", "flowering"]).default("vegetative").notNull(),
@@ -208,7 +208,7 @@ export type InsertGrowDiaryEntry = typeof growDiaryEntries.$inferInsert;
 // Newsletter Subscribers
 // ============================================
 export const newsletterSubscribers = mysqlTable("newsletterSubscribers", {
-  id: serial("id").primaryKey(),
+  id: bigint("id", { mode: "number", unsigned: true }).autoincrement().primaryKey(),
   email: varchar("email", { length: 320 }).notNull().unique(),
   name: varchar("name", { length: 255 }),
   status: mysqlEnum("status", ["pending", "confirmed", "unsubscribed"]).default("pending").notNull(),
@@ -227,7 +227,7 @@ export type InsertNewsletterSubscriber = typeof newsletterSubscribers.$inferInse
 // Page Views (Internal Analytics)
 // ============================================
 export const pageViews = mysqlTable("pageViews", {
-  id: serial("id").primaryKey(),
+  id: bigint("id", { mode: "number", unsigned: true }).autoincrement().primaryKey(),
   path: varchar("path", { length: 500 }).notNull(),
   referrer: varchar("referrer", { length: 500 }),
   userAgent: varchar("userAgent", { length: 255 }),
@@ -242,7 +242,7 @@ export type InsertPageView = typeof pageViews.$inferInsert;
 // Newsletter Campaigns
 // ============================================
 export const newsletterCampaigns = mysqlTable("newsletterCampaigns", {
-  id: serial("id").primaryKey(),
+  id: bigint("id", { mode: "number", unsigned: true }).autoincrement().primaryKey(),
   subject: varchar("subject", { length: 255 }).notNull(),
   subjectEn: varchar("subjectEn", { length: 255 }),
   contentHtml: text("contentHtml").notNull(),
@@ -265,7 +265,7 @@ export type InsertNewsletterCampaign = typeof newsletterCampaigns.$inferInsert;
 // Newsletter Images (separate from gallery!)
 // ============================================
 export const newsletterImages = mysqlTable("newsletterImages", {
-  id: serial("id").primaryKey(),
+  id: bigint("id", { mode: "number", unsigned: true }).autoincrement().primaryKey(),
   filename: varchar("filename", { length: 255 }).notNull(),
   originalName: varchar("originalName", { length: 255 }).notNull(),
   url: varchar("url", { length: 500 }).notNull(),
@@ -282,7 +282,7 @@ export type InsertNewsletterImage = typeof newsletterImages.$inferInsert;
 // Media Tags (for media library categorization)
 // ============================================
 export const mediaTags = mysqlTable("mediaTags", {
-  id: serial("id").primaryKey(),
+  id: bigint("id", { mode: "number", unsigned: true }).autoincrement().primaryKey(),
   mediaId: bigint("mediaId", { mode: "number", unsigned: true }).notNull(),
   tag: varchar("tag", { length: 50 }).notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
