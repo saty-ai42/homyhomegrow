@@ -9,8 +9,8 @@ function required(name: string): string {
 }
 
 export const env = {
-  appId: required("APP_ID"),
-  appSecret: required("APP_SECRET"),
+  appId: required("APP_ID") || "dev-app-id",
+  appSecret: required("APP_SECRET") || "dev-fallback-secret-min-32-chars-long!!!",
   isProduction: process.env.NODE_ENV === "production",
   databaseUrl: required("DATABASE_URL") || (!process.env.NODE_ENV || process.env.NODE_ENV === "development" ? "mysql://root@localhost:3306/homyhomegrow" : ""),
   kimiAuthUrl: required("KIMI_AUTH_URL"),
