@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Deine deutschsprachige Community für Cannabis Anbau. Guides, Grow Diaries & mehr." />
+    <meta name="keywords" content="cannabis, anbau, grow, guides, grow diary, community, deutsch" />
+    <meta name="author" content="HomyHomegrow" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0A0A0A" />
+    
+    <!-- Open Graph Default -->
+    <meta property="og:title" content="HomyHomegrow" />
+    <meta property="og:description" content="Deine deutschsprachige Community für Cannabis Anbau. Guides, Grow Diaries & mehr." />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="HomyHomegrow" />
+    <meta property="og:locale" content="de_DE" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="HomyHomegrow" />
+    <meta name="twitter:description" content="Deine deutschsprachige Community für Cannabis Anbau. Guides, Grow Diaries & mehr." />
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    
+    <title>HomyHomegrow</title>
+    <script>
+      // Theme initialization - runs IMMEDIATELY before any CSS or JS loads
+      (function() {
+        try {
+          var theme = localStorage.getItem("homyhomegrow-theme");
+          if (theme === "light") {
+            document.documentElement.classList.remove("dark");
+          } else {
+            document.documentElement.classList.add("dark");
+          }
+        } catch (e) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
