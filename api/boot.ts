@@ -6,10 +6,14 @@ import { appRouter } from "./router";
 import { createContext } from "./context";
 import { env } from "./lib/env";
 import { createOAuthCallbackHandler } from "./kimi/auth";
-import { Paths } from "@contracts/constants";
+import { Paths, Session } from "@contracts/constants";
 import { seoApp } from "./seo-routes";
 import { getDb } from "./queries/connection";
 import { sql } from "drizzle-orm";
+import { setCookie } from "hono/cookie";
+import { signSessionToken } from "./kimi/session";
+import { getSessionCookieOptions } from "./lib/cookies";
+import { upsertUser } from "./queries/users"; // Dev login bypass
 
 // Auto-migrate grow diary columns on startup
 try {
@@ -76,6 +80,31 @@ app.get(Paths.oauthCallback, createOAuthCallbackHandler());
 
 // SEO Routes (robots.txt, sitemap.xml, rss.xml)
 app.route("/api", seoApp);
+
+// Dev Login Bypass (localhost only)
+app.get("/api/dev-login", async (c) => {
+  if (env.isProduction) {
+    return c.json({ error: "Not available in production" }, 403);
+  }
+  await upsertUser({
+    unionId: "dev-admin-001",
+    name: "Dev Admin",
+    email: "admin@localhost",
+    avatar: null,
+    role: "admin",
+    lastSignInAt: new Date(),
+  });
+  const token = await signSessionToken({
+    unionId: "dev-admin-001",
+    clientId: env.appId,
+  });
+  const cookieOpts = getSessionCookieOptions(c.req.raw.headers);
+  setCookie(c, Session.cookieName, token, {
+    ...cookieOpts,
+    maxAge: Session.maxAgeMs / 1000,
+  });
+  return c.redirect("/", 302);
+});
 
 app.use("/api/trpc/*", async (c) => {
   return fetchRequestHandler({
