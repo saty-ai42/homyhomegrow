@@ -133,7 +133,7 @@ async function seed() {
       growMethod: "soil",
       status: "flowering",
       startDate: new Date(Date.now() - 50 * 86400000),
-      dayCount: 50,
+      mediumDetails: "BioBizz Light Mix",
       descriptionDe: "Mein erster Grow mit White Widow. Indoor im 60x60cm Zelt.",
       descriptionEn: "My first grow with White Widow. Indoor in a 60x60cm tent.",
       featuredImage: "/images/buds.jpg",
@@ -148,7 +148,7 @@ async function seed() {
       growMethod: "coco",
       status: "harvesting",
       startDate: new Date(Date.now() - 80 * 86400000),
-      dayCount: 80,
+      mediumDetails: "Canna Coco Professional",
       descriptionDe: "Northern Lights Auto in Coco. Schneller und ertragreicher Grow.",
       descriptionEn: "Northern Lights Auto in coco. Quick and high-yielding grow.",
       featuredImage: "/images/seedling.jpg",
@@ -159,12 +159,12 @@ async function seed() {
 
   // Grow Diary Entries
   await db.insert(growDiaryEntries).values([
-    { diaryId: 1, day: 1, week: 1, titleDe: "Keimung gestartet", titleEn: "Germination started", contentDe: "Samen in Wasser gelegt. Warten auf den Taproot.", contentEn: "Seeds placed in water. Waiting for taproot.", humidity: 70, temperature: 24 },
-    { diaryId: 1, day: 3, week: 1, titleDe: "Taproot sichtbar", titleEn: "Taproot visible", contentDe: "Die Samen haben gekeimt! Bereit für die Erde.", contentEn: "Seeds have germinated! Ready for soil.", humidity: 65, temperature: 23 },
-    { diaryId: 1, day: 14, week: 2, titleDe: "Erste Blätter", titleEn: "First leaves", contentDe: "Die ersten echten Blätter sind zu sehen. Wachstum läuft gut.", contentEn: "First true leaves visible. Growth is going well.", humidity: 60, temperature: 25 },
-    { diaryId: 1, day: 30, week: 4, titleDe: "In Blüte geschaltet", titleEn: "Switched to flower", contentDe: "12/12 Lichtzyklus gestartet. Die Blüte beginnt!", contentEn: "12/12 light cycle started. Flowering begins!", humidity: 50, temperature: 24 },
-    { diaryId: 2, day: 1, week: 1, titleDe: "Direkt in Coco", titleEn: "Straight into coco", contentDe: "Samen direkt in der End-Coco platziert.", contentEn: "Seeds placed directly in final coco.", humidity: 75, temperature: 26 },
-    { diaryId: 2, day: 30, week: 4, titleDe: "Autoflower blüht", titleEn: "Autoflower flowering", contentDe: "Die Auto hat von selbst angefangen zu blühen. Schöne Buds!", contentEn: "The auto started flowering on its own. Beautiful buds!", humidity: 45, temperature: 24 },
+    { diaryId: 1, day: 1, phase: "vegetative", titleDe: "Keimung gestartet", titleEn: "Germination started", contentDe: "Samen in Wasser gelegt. Warten auf den Taproot.", contentEn: "Seeds placed in water. Waiting for taproot.", humidity: 70, temperature: 24, vpd: "0.8", fertilizer: "Keiner", additives: "", notes: "" },
+    { diaryId: 1, day: 3, phase: "vegetative", titleDe: "Taproot sichtbar", titleEn: "Taproot visible", contentDe: "Die Samen haben gekeimt! Bereit für die Erde.", contentEn: "Seeds have germinated! Ready for soil.", humidity: 65, temperature: 23, vpd: "0.9", fertilizer: "Keiner", additives: "", notes: "" },
+    { diaryId: 1, day: 14, phase: "vegetative", titleDe: "Erste Blätter", titleEn: "First leaves", contentDe: "Die ersten echten Blätter sind zu sehen. Wachstum läuft gut.", contentEn: "First true leaves visible. Growth is going well.", humidity: 60, temperature: 25, vpd: "1.0", fertilizer: "Bio Grow 2ml/L", additives: "Root Juice", notes: "" },
+    { diaryId: 1, day: 30, phase: "flowering", titleDe: "In Blüte geschaltet", titleEn: "Switched to flower", contentDe: "12/12 Lichtzyklus gestartet. Die Blüte beginnt!", contentEn: "12/12 light cycle started. Flowering begins!", humidity: 50, temperature: 24, vpd: "1.2", fertilizer: "Bio Bloom 3ml/L", additives: "Top Max", notes: "" },
+    { diaryId: 2, day: 1, phase: "vegetative", titleDe: "Direkt in Coco", titleEn: "Straight into coco", contentDe: "Samen direkt in der End-Coco platziert.", contentEn: "Seeds placed directly in final coco.", humidity: 75, temperature: 26, vpd: "0.8", fertilizer: "Canna A+B 1ml/L", additives: "Rhizotonic", notes: "" },
+    { diaryId: 2, day: 30, phase: "flowering", titleDe: "Autoflower blüht", titleEn: "Autoflower flowering", contentDe: "Die Auto hat von selbst angefangen zu blühen. Schöne Buds!", contentEn: "The auto started flowering on its own. Beautiful buds!", humidity: 45, temperature: 24, vpd: "1.3", fertilizer: "Canna PK 13/14", additives: "Bud Candy", notes: "" },
   ]);
   console.log("Grow diary entries seeded");
 
