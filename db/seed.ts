@@ -8,6 +8,7 @@ import {
   growDiaries,
   growDiaryEntries,
   media,
+  mediaTags,
 } from "./schema";
 
 async function seed() {
@@ -176,6 +177,15 @@ async function seed() {
     { filename: "plant.jpg", originalName: "Healthy Plant", url: "/images/plant.jpg", type: "image", sizeBytes: 307200, captionDe: "Gesunde Pflanze", captionEn: "Healthy Plant" },
   ]);
   console.log("Media seeded");
+
+  // Media Tags (for gallery filter)
+  await db.insert(mediaTags).values([
+    { mediaId: 1, tag: "gallery" },
+    { mediaId: 2, tag: "gallery" },
+    { mediaId: 3, tag: "gallery" },
+    { mediaId: 4, tag: "gallery" },
+  ]);
+  console.log("Media tags seeded");
 
   console.log("Seeding complete!");
 }
